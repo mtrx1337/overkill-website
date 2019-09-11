@@ -1,15 +1,18 @@
 version: '3.7'
 services:
-    backend:
-        image: me/backend
-        build:
-            context: "backend"
+    nginx:
+        build: ./nginx
+        container_name: nginx
+        restart: always
+        ports: "80:80"
         volumes:
             - "/var/www:/var/www"
 
-    frontend:
-        image: nginx:latest-alpine
+    web:
+        build: ./web
+        container_name: web
+        restart: always
+        expose:
+            - 9000
         volumes:
-        depends_on:
-            - "backend"
-        ports: "80:80"
+            - "/var/www:/var/www"
