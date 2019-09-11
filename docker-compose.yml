@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+    backend:
+        image: me/backend
+        build:
+            context: "backend"
+        volumes:
+            - "/var/www:/var/www"
+
+    frontend:
+        image: nginx:latest-alpine
+        volumes:
+        depends_on:
+            - "backend"
+        ports: "80:80"
