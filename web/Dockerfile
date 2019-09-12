@@ -9,15 +9,19 @@ VOLUME /var/www
 WORKDIR /srv/http
 
 COPY ./src .
+COPY ./requirements.txt .
 
+ENV UWSGI_PROFILE=core
 RUN apk add --no-cache \
-        uwsgi-python3 \
-        python3
+        python3 \
+        python3-dev \
+        linux-headers \
+        pcre-dev \
+        musl \
+        musl-dev \
+        build-base \
+        uwsgi-python3
 
 RUN pip3 install -r requirements.txt
 
-CMD "uwsgi", "--socket", "0.0.0.0:9000", \
-             "--uid", "uwsgi", \
-             "--plugins", "python3" \
-             "--protocol", "uwsgi", \
-             "--wsgi", "main:application"
+CMD ["uwsgi", "app.ini"]
