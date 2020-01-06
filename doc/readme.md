@@ -12,3 +12,9 @@ This is my (WIP) scalable and containerized website. It will host my landing pag
 - [ ] serve templates from static
 - [ ] serve static content
 - [ ] build website
+
+# Dependencies
+
+python3-virtualenv
+python3-devel
+gcc

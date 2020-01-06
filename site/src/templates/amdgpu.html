@@ -1,0 +1,121 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="public, max-age=31536000"/>
+  <meta name="keywords" content="Arch Setup AMDGPU, AMDGPU Linux, Install AMDGPU, Printing, Arch Tips, Arch Linux installation">
+  <meta name="description" content="A collection of tips for your Arch Linux installation, that I wish I had when I started out.">
+  <meta name="robots" content="index,follow">
+
+  <title> Helpful Arch Linux Tips </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+  <link href='/css/arch.css' type="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+    <ul>
+        <a href='printing.html'><div class='print'><li>Printing</li></div></a>
+        <a href='amdgpu.html'><div class='amdgpu'><li>AMDGPU</li></div></a>
+        <a href='vim.html'><div class='vim'><li>VIM Plugins</li></div></a>
+    </ul>
+    <section class="section section-blue">
+        <h2> Installing AMDGPU (with Southern/Sea Islands support) </h2><br>
+        <p>
+        First of all: I AM NOT RESPONSIBLE FOR YOUR LOSS OF A WORKING SYSTEM. If you find that something is explicitely wrong, please E-Mail me at <a href='mailto:contact@leonardlorenz.de'>contact@leonardlorenz.de</a><br><br>
+            If you have a newer AMD graphics card, installing the proprietary drivers is kind of a logical step.
+            You want to use all this processing power after all. For the newer cards, the installation process
+            is not that hard. <br>
+            If you install AMDGPU for the first time, with an older card like the Radeon HD7950,
+            you'll probably give up frustrated on what you've done wrong yet again. You're not alone. This is why I
+            wrote this guide. Brace yourselfs, you're in for a ride.<br><br>
+        </p>
+        <h3> Preparation </h3>
+        <p>
+            I strongly advice you to have a bootable stick of any arch-based distro on hand.
+            Things can go very wrong here.<br>
+            If you want to use your driver for 32bit applications, we first have to enable the
+            <a href='https://wiki.archlinux.org/index.php/Multilib#Enabling'>Multilib Repository</a>.
+            The ArchWiki did a great job on explaining how this is done.
+            Don't forget to upgrade your packages after enabling it!<br>
+            <code> sudo pacman -Syu</code><br><br>
+        </p>
+        <h3> Installation </h3>
+        <p>
+            The first things we need for the installation are the packages.
+            I'll just assume you enabled the Multilib repository and updated your packages already.
+            Installing the packages can be put in a one line command.
+            If you wonder what all those packages are, look them up on the <a href='https://wiki.archlinux.org/index.php/AMDGPU#Installation'>ArchWiki Article</a>.<br>
+            <code> sudo pacman -S mesa lib32-mesa xf86-video-amdgpu vulkan-radeon libva-mesa-driver lib32-libva-mesa-driver</code><br>
+            I suggest rebooting now.
+            Anyone with a Radeon HD7990 or lower should proceed to:
+            "Forcing the Kernel to load AMDGPU instead of Radeon"<br>
+            Users of more recent AMD GPUs should now verify that AMDGPU was loaded correctly.
+            We do that by running the command: <br>
+            <code> lspci -v </code> <br>
+            And looking for our graphics cards entry. If you see something like the red marked line:<br>
+            <code>
+            01:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
+            [AMD/ATI] Tahiti PRO [Radeon HD 7950/8950 OEM / R9 280]<br>
+            <span class='code codeimportant'>Kernel driver in use: amdgpu</code><br>
+                     Kernel modules: radeon, amdgpu <br>
+            </code>
+            If your output shows that amdgpu is used (like in the marked line above),
+            you're good to go! You can now lean back and proceed with installing Xorg.
+            That's it!
+            If it doesn't, please jump to the next chapter.
+        </p> <br>
+        <h3>Forcing the Kernel to load AMDGPU instead of Radeon</h3>
+        <p>
+            Alright class, attention please. Now it's going to get serious. Listen up. <br>
+            The first thing we're going to do,
+            is making sure that the latest "linux-firmware" package is installed. <br>
+            <code> pacman -Sy linux-firmware </code><br><br>
+            Next we have to verify that neiter "nomodeset" or "vga=" are set as kernel parameters. <br>
+            There is just one problem. You can't find out kernel parameters that were added in the compilation process of the kernel.
+            (If you can, please shoot me an E-Mail at
+			<a href='mailto:contact@leonardlorenz.de"'> contact@leonardlorenz.de </a><br>
+			But there's a thing we can do as precaution. This depends on the Bootloader your'e
+			using. Please read <a href='https://wiki.archlinux.org/index.php/Kernel_parameter'>this</a> before continuing.
+			If you're using GRUB (like me)
+ 			Look up the file "/etc/default/grub"
+			and open it with your favourite text editor (with root rights)<br>
+			<code> sudo vim /etc/default/grub</code> <br>
+			and search for the line "GRUB_CMDLINE_LINUX_DEFAULT". <br>
+			In this line, inside the quotation marks, look for the parameters "nomodeset" and "vga="
+			If there is such one, delete it and save the file.<br>
+			Now we have to rebuild your GRUB configuration with this command: <br>
+			<code> grub-mkconfig -o /boot/grub/grub.cfg </code><br><br>
+
+			After this is done, open up "/etc/mkinitcpio.conf" and search for "MODULES=". <br>
+			<code> sudo vim /etc/mkinitcpio.conf</code> <br>
+			Put "amdgpu" as the first entry in between those quotation marks.<br>
+
+			Finally we're going to do the most dangerous thing.
+			We're gonna blacklist the Radeon driver and rebuild mkinitcpio with the blacklisted module.<br>
+			<code> sudo echo "blacklist radeon" > /etc/modprobe.d/noradeon.conf && sudo mkinitcpio -p linux</code> <br>
+			All the people that do NOT have a Radeon HD7990 or older are done now.
+			You can now reboot and hope everything worked.
+			If you don't see a black screen after grub shows up ... you made it!
+			All users of a Radeon HD7990 or older have to visit the next and last chapter.
+        </p><br>
+
+		<h3> Enabling support for Southern Islands and Sea Islands cards (HD7990 and older)</h3>
+		<p>
+            Open up /etc/default/grub and search for "GRUB_CMDLINE_LINUX_DEFAULT=" again. <br>
+			<code> sudo vim /etc/default/grub</code> <br>
+            Now, depending on your cards generation, add to the array either <br>
+           	<code> amdgpu.si_support=1 radeon.si_support=0</code>
+            (if you're using a Southern Islands card) or<br>
+
+           	<code> amdgpu.cik_support=1 radeon.cik_support=0</code>
+            (if you're using a Sea Islands card)<br>
+
+            Once you saved and closed that file, rebuild your grub configuration with<br>
+            <code>sudo grub-mkconfig -o /boot/grub/grub.cfg </code><br>
+            again and reboot. If you don't get a black screen, you've made it! Yay!
+		</p>
+
+    </section>
+</body>

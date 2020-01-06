@@ -1,0 +1,66 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="public, max-age=31536000"/>
+  <meta name="keywords" content="Arch Setup Printer, Arch Linux, Printing, Arch Tips, Arch Linux installation">
+  <meta name="description" content="A collection of tips for your Arch Linux installation, that I wish I had when I started out.">
+  <meta name="robots" content="index,follow">
+
+  <title> Helpful Arch Linux Tips </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+  <link href='/css/arch.css' type="text/css" rel="stylesheet"/>
+</head>
+
+<body>
+    <ul>
+        <a href='printing.html'><div class='print'><li>Printing</li></div></a>
+        <a href='amdgpu.html'><div class='amdgpu'><li>AMDGPU</li></div></a>
+        <a href='vim.html'><div class='vim'><li>VIM Plugins</li></div></a>
+    </ul>
+    <section class="section section-blue">
+        <h2> Printing (you probably know the struggle) </h2>
+        <p>
+            First of all, you have to install the CUPS package. This is the huge printing framework that you WILL need.
+            It provides 99% of the printing drivers and software.
+            In my case the framework is not enough, because I have a quite old and exotic Epson Inkjet printer.
+            If you too have an old Epson printer, install the package "epson-inkjet-printer-escpr" from the AUR.
+            I suggest first trying the steps below. If you can't get your printer to work,
+            maybe look up your printers driver in the AUR!<br><br>
+
+            Installing the CUPS framework: <br>
+            <code> sudo pacman -S cups cups-pdf</code><br>
+
+            For Epson owners: <br>
+            <code> yay -S epson-inkjet-printer-escpr</code><br><br>
+            You can replace "yay" with any AUR manager you want, I just happen to use yay. The next package you will probably want to have is "system-config-printer".
+            This is the GNOME printing manager as far as I know.
+            It allows you to easily enable your printer for system wide printing.
+            This package is optional if you know what you're doing. <br><br>
+
+            Optional: <br>
+            <code> sudo pacman -S system-config-printing </code> <br><br>
+
+            To be able to use CUPS, you have to enable and start it's service now.
+            This can be done with a one line command. <br>
+
+            <code> sudo systemctl enable org.cups.cupsd.service &&
+                sudo systemctl start org.cups.cupsd.service </code><br><br>
+
+            Finally, you have to visit this link: <br>
+            <a href='http://localhost:631/'><code>http://localhost:631/</code></a><br>
+
+            It may look intimidating at first, at least it was for me. Like, what now? Anyways.
+            This is your CUPS webinterface from where you can add your printer.
+            Looking at the middle, you can see the headline "CUPS for administrators".
+            Below you should see the link "Adding Printers and Classes". Click this.
+            Afterwards you should see "Add Printer" in the top left corner.
+            There you have to log in with your linux user name and password.
+            Now select the printer you want to add and set up. Hit continue and you're done! <br>
+            If you want to can check out the optional package that I spoke about earlier.
+            It allows for easy managing of the printing and group settings.
+        </p>
+    </section>
+</body>
