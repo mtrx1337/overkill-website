@@ -1,0 +1,205 @@
+html, body{
+  margin: 0;
+  font-family: "Poiret One";
+  background: #12222d;
+}
+
+input::-webkit-input-placeholder { color:#ddd;}
+input:-moz-placeholder { color:#ddd;} /* FF 4-18 */
+input::-moz-placeholder { color:#ddd;} /* FF 19+ */
+input:-ms-input-placeholder { color:#ddd;} /* IE 10+ */
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; } /* FF 4-18 */
+input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+input:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
+
+#calculator{
+  background-color: #47422f;
+  width: 100%;
+  height: 100%;
+}
+
+#number1, #number2{
+  width: 100%;
+  height: 200px;
+  font-size: 75px;
+  border: none;
+  color: white;
+  text-align: center;
+  font-family: "Poiret One";
+}
+
+#number1{
+  background-color: #18818e;
+}
+
+#number1:hover{
+  background-color: #6b233e;
+}
+
+#number2{
+  background-color: #115e68;
+}
+
+#number2:hover{
+  background-color: #6b233e;
+}
+
+input[name=operator] {
+  width: 100%;
+  height: 200px;
+  margin: 0;
+  margin-top: -145px;
+  opacity: 0;
+  position: relative;
+}
+
+/* colors for operator signs */
+label[for=operators]{
+ color: #ddd;
+ height: 400px;
+}
+
+/* colors for operator sign background */
+.operators{
+  list-style-type:none;
+  margin: 0;
+  padding:0;
+}
+
+.operators li {
+  width: 25%;
+  float:left;
+  text-align: center;
+  height: 200px;
+}
+
+.operators label{
+  cursor:pointer;
+   -webkit-appearance: none;
+   -moz-appearance:    none;
+   appearance:         none;
+}
+
+.sign{
+  margin-top: 60px;
+  display: block;
+  color: #ddd;
+  font-family: "Arial";
+  font-size: 75px;
+}
+
+.add, .sub, .mul, .div {
+  background-color: #0d4e56;
+}
+
+.add:hover, .sub:hover, .mul:hover, .div:hover{
+  background-color: #6b233e;
+}
+
+.add:active{
+  background-color: #3f1515;
+}
+
+.sub:active{
+  background-color: #234f60;
+}
+
+.mul:active{
+  background-color: #153f18;
+}
+
+.div:active{
+  background-color: #27153f;
+}
+
+.calculate{
+  background-color: #0a4047;
+  padding: 0;
+  height: 200px;
+  width: 100%;
+  border: none;
+  color: #ddd;
+  font-size: 75px;
+  text-align: center;
+}
+
+.calculate:hover{
+  background-color: #1d5932;
+}
+
+.answeris{
+  background-color: #12222d;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  color: #ddd;
+  position: relative;
+  text-align: center;
+}
+
+.answeris p {
+  font-size: 75px;
+  margin: 0;
+  line-height: 100px;
+}
+
+@media screen and (min-width:1280px) {
+
+}
+
+@media (max-width:1280px) {
+
+}
+
+@media (max-width:800px) {
+  #number1, #number2{
+    width: 100%;
+    height: 75px;
+    font-size: 30px;
+    border: none;
+    color: white;
+    text-align: center;
+    line-height: 50px
+  }
+
+  .operators{
+    list-style-type:none;
+  }
+
+  .operators li {
+    width: 25%;
+    float:left;
+    text-align: center;
+    height: 100px;
+  }
+
+  .sign{
+  margin: 0;
+  margin-top: 10px;
+  }
+
+/* actual buttons */
+  input[name=operator] {
+    width: 100%;
+    height: 110px;
+    margin: 0;
+    margin-top: -500px;
+  }
+
+  .calculate{
+    height: 100px;
+  }
+
+  .answeris{
+    height: 1000px;
+  }
+
+  .answeris p{
+    line-height: 80px;
+    font-size: 40px;
+    padding-top: 20px;
+  }
+
+}
