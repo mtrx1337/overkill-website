@@ -7,7 +7,7 @@ This is my (WIP) scalable and containerized website. It will host my landing pag
 - [X] basic API
 - [X] containerization
 - [X] docker-compose
-- [X] webserver / uwsgi / nginx connection
+- [X] flask / uwsgi / nginx connection
 - [ ] serve hello world
 - [ ] serve templates from static
 - [ ] serve static content
@@ -15,6 +15,8 @@ This is my (WIP) scalable and containerized website. It will host my landing pag
 
 # Dependencies
 
+docker
+docker-compose
 python3-virtualenv
 python3-devel
 gcc
