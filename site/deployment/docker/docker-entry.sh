@@ -2,14 +2,12 @@ uwsgi \
     -s /tmp/site.sock \
     --vacuum \
     --die-on-term \
-    --static-map /=/code/static \
-    --static-map /=/var/www \
     --enable-threads \
     --threads 4 \
     --python-path /code \
     --plugins-dir /usr/lib/uwsgi/ \
     --master \
-    --http 0.0.0.0:8000 \
+    #--http 0.0.0.0:8000 \
     --manage-script-name \
     --mount /=app:app
     --uid = http \
