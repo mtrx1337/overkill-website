@@ -3,8 +3,8 @@ uwsgi \
     --threads 4 \
     --python-path /code \
     --static-map /=/code/static \
+    --static-map /=/var/www \
     --plugins-dir /usr/lib/uwsgi/ \
-    --plugins-list \
     --master \
     --http 0.0.0.0:8000 \
     --manage-script-name \
