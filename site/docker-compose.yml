@@ -2,7 +2,8 @@ version: '3.7'
 services:
     web:
         build: .
+        image: site
         container_name: site
         restart: always
         ports:
-            - "8000:80"
+            - "80:8000"

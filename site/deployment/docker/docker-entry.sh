@@ -1,7 +1,13 @@
 uwsgi \
-    -s /tmp/site.sock \
+    --enable-threads \
+    --threads 4 \
+    --python-path /code \
+    --static-map /=/code/static \
+    --plugins-dir /usr/lib/uwsgi/ \
+    --plugins-list \
+    --master \
+    --http 0.0.0.0:8000 \
     --manage-script-name \
-    --mount /=app:app \
-    --plugin http,python3 \
-    #--virtualenv /code/venv \
-    --check-static /code/src/static
+    --mount /=app:app
+    --uid = http \
+    --gid = http
