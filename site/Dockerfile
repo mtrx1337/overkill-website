@@ -2,6 +2,7 @@ FROM alpine
 
 RUN mkdir -p /etc/nginx
 RUN mkdir -p /code
+RUN mkdir -p /var/www
 
 COPY ./deployment/docker/docker-entry.sh /
 COPY ./deployment/nginx/nginx.conf /etc/nginx
