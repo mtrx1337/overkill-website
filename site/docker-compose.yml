@@ -5,5 +5,7 @@ services:
         image: site
         container_name: site
         restart: always
+        volumes:
+            - /var/www:/var/www
         ports:
             - "80:8000"
