@@ -5,7 +5,7 @@ RUN mkdir -p /code
 RUN mkdir -p /var/www
 
 COPY ./deployment/docker/docker-entry.sh /
-COPY ./deployment/nginx/nginx.conf /etc/nginx
+COPY ./config/nginx/nginx.conf /etc/nginx
 COPY ./src /code
 COPY ./requirements.txt /code
 
