@@ -8,15 +8,14 @@ This is my (WIP) scalable and containerized website. It will host my landing pag
 - [X] containerization
 - [X] docker-compose
 - [X] flask / uwsgi / nginx connection
-- [ ] serve hello world
-- [ ] serve templates from static
-- [ ] serve static content
-- [ ] build website
+- [X] serve hello world
+- [X] serve templates from static
+- [X] serve static content
+- [X] build website
 
 # Dependencies
 
 docker
 docker-compose
-python3-virtualenv
 python3-devel
 gcc
