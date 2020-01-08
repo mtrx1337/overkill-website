@@ -14,11 +14,8 @@ header {
     padding-bottom: 50px;
 }
 
-tr, th {
+#lang-table tr td, #lang-table tr {
     line-height: 0.2em;
-}
-
-td, th {
     border-bottom: none;
 }
 
