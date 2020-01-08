@@ -1,14 +1,15 @@
 uwsgi \
-    -s /tmp/site.sock \
+    -s /sock/site.sock \
+    --chmod-socket=666 \
     --vacuum \
+    --http 0.0.0.0:8000 \
+    --check-static /code/static \
+    --mime-file /etc/mime.types \
     --die-on-term \
     --enable-threads \
     --threads 4 \
     --python-path /code \
     --plugins-dir /usr/lib/uwsgi/ \
     --master \
-    #--http 0.0.0.0:8000 \
     --manage-script-name \
     --mount /=app:app
-    --uid = http \
-    --gid = http
