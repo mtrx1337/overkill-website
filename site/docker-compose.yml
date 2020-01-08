@@ -17,7 +17,8 @@ services:
             - "8000:8000"
         volumes:
             - sock:/sock
-            - /var/www:/var/www
+            - /var/www/screenshots:/var/www/screenshots
+            - /var/www/files:/var/www/files
             - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
             - site
