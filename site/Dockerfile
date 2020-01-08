@@ -1,16 +1,15 @@
 FROM alpine
 
-RUN mkdir -p /etc/nginx
 RUN mkdir -p /code
+RUN mkdir -p /sock # uwsgi socket
 RUN mkdir -p /var/www
 
+COPY ./config/mime.types /etc
 COPY ./deployment/docker/docker-entry.sh /
-COPY ./config/nginx/nginx.conf /etc/nginx
 COPY ./src /code
 COPY ./requirements.txt /code
 
 RUN apk add --no-cache \
-        nginx \
         python3 \
         python3-dev \
         linux-headers \
