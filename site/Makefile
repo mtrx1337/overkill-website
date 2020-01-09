@@ -3,6 +3,7 @@ venv:
 	./venv/bin/pip3 install -r requirements.txt
 
 redeploy:
+	docker-compose build
 	docker stack rm website
 	docker swarm leave --force
 	docker swarm init
