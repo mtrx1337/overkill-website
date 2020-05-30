@@ -8,6 +8,7 @@ services:
         container_name: site
         restart: always
         volumes:
+            - ./src:/code
             - sock:/sock
 
     nginx:
