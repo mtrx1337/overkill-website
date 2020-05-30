@@ -6,7 +6,6 @@ RUN mkdir -p /var/www
 
 COPY ./config/mime.types /etc
 COPY ./deployment/docker/docker-entry.sh /
-COPY ./src /code
 COPY ./requirements.txt /code
 
 RUN apk add --no-cache \
